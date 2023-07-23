@@ -99,7 +99,7 @@ mvn archetype:generate
 
 ###  Exemplo de definições do novo projeto
 
-* Choose a number or apply filter: (Na listagem escolha o número correspondente ao projeto de archetype Ex.:3187: local -> com.api:arcref-archetype (Sensedia arcref))
+* Choose a number or apply filter: (Na listagem escolha o número correspondente ao projeto de archetype Ex.:3187: local -> tech.api.archref:archref-archetype)
 * Define value for property 'groupId': com.api
 * Define value for property 'artifactId': empresa
 * Define value for property 'version' 1.0-SNAPSHOT:
@@ -147,8 +147,8 @@ mvn clean install
 
 ### Executando **local**
 ```
-docker build -t arcrefjava:master .
-docker run -d -p 8080:8080 --name arc arcrefjava:master 
+docker build -t springarchref:master .
+docker run -d -p 8080:8080 --name arc springarchref:master 
 ```
 
 ### Executando os **testes**
