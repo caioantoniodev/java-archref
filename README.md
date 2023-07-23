@@ -108,67 +108,6 @@ mvn archetype:generate
 <br/>
 
 
-## ✔️ Character
-<kbd>/character</kbd>
-
-Recurso que representa um personagem qualquer como um **entidade**
-
-| METHOD | ENDPOINT | DESCRIPTION | ESCOPE |
-| --- | --- | --- | --- |
-| **POST** | `/sensedia/v1/character` | Cria um novo personagem | <kbd>REQUEST</kbd>
-| **DELETE** | `/sensedia/v1/character/{characterId}` | Remove um personagem específico pelo Id | <kbd>REQUEST</kbd>
-| **PUT** | `/sensedia/v1/character/{characterId}` | Atualiza um personagem específico pelo Id  | <kbd>REQUEST</kbd>
-| **GET** | `/sensedia/v1/character/{characterId}` | Lista um personagem específico pelo Id | <kbd>REQUEST</kbd>
-| **GET** | `/sensedia/v1/character/filters?skip_size=0&limit_size=5` | Lista com paginação dos últimos personagens inseridos | <kbd>REQUEST</kbd>
-
-<br/> 
-
-## 📐 Arquitetura
-
-Esse microsserviço foi estruturado usando [arquitetura hexagonal](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)#:~:text=The%20hexagonal%20architecture%2C%20or%20ports,means%20of%20ports%20and%20adapters.) seguindo a estrutura de pastas abaixo
-
-```
-  /src
-	/application
-		/adapters
-		  /amqp
-		  /http
-			/inbound
-    /config
-    /domain
-      /entities
-      /repositories	
-        /entity
-      /services
-    /infrasctructure
-      /amqp
-        /config
-      /database
-        /mongo
-          /entity
-      /http
-      /logger
-	/utils
-```
-
-<br/>
-
-## ⌛️ Serviços
-
-- ### 🌐 **HTTP**
-  Esse microsserviço faz proxy com uma API pública de personagens da Marvel
-
-- ### 🟥 **Redis**
-  Esse microsserviço armazena e faz leitura de serviço em cache com [Redis](https://redis.io/).
-
-- ### 🍃 **MongoDB**
-  Esse microsserviço usa armazenamento com banco de dados não relacional com [MongoDB](https://www.mongodb.com/).
-
-- ### 🟠 **RabbitMQ**
-  Esse microsserviço usa implementação de *event broker* com [RabbitMQ](https://www.rabbitmq.com/) com publicadores e consumidores da fila.
-
-<br/>
-
 ## ⚡ Getting started
 
 Executa o docker compose para subir as imagens necessárias em container docker
