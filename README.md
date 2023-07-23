@@ -9,7 +9,7 @@
 
 <br/>
 
-# ☁️ Arch-Ref Java
+# ☁️ Arch-Ref Spring
 
 Esse projeto é um template de arquitetura de referência para projetos em Java 17 com spring boot e maven
 
