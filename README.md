@@ -21,19 +21,18 @@ Esse microserviço apresenta o recurso de personagem (character) na qual haja um
 
 <br/>
 
-=======
 ## ✔️ Character
 <kbd>/character</kbd>
 
 Recurso que representa um personagem qualquer como um **entidade**
 
-| METHOD | ENDPOINT | DESCRIPTION | ESCOPE |
-| --- | --- | --- | --- |
-| **POST** | `/` | Cria um novo personagem | <kbd>REQUEST</kbd>
-| **POST** | `/random` | Cria um personagem aleatório  | <kbd>REQUEST</kbd>
-| **DELETE** | `/{characterId}` | Remove um personagem específico pelo Id | <kbd>REQUEST</kbd>
-| **PUT** | `/{characterId}` | Atualiza um personagem específico pelo Id  | <kbd>REQUEST</kbd>
-| **GET** | `/{characterId}` | Lista um personagem específico pelo Id | <kbd>REQUEST</kbd>
+| METHOD     | ENDPOINT         | DESCRIPTION                               | ESCOPE             |
+|------------|------------------|-------------------------------------------|--------------------|
+| **POST**   | `/`              | Cria um novo personagem                   | <kbd>REQUEST</kbd> |
+| **POST**   | `/random`        | Cria um personagem aleatório              | <kbd>REQUEST</kbd> |
+| **DELETE** | `/{characterId}` | Remove um personagem específico pelo Id   | <kbd>REQUEST</kbd> |
+| **PUT**    | `/{characterId}` | Atualiza um personagem específico pelo Id | <kbd>REQUEST</kbd> |
+| **GET**    | `/{characterId}` | Lista um personagem específico pelo Id    | <kbd>REQUEST</kbd> |
 
 <br/> 
 
