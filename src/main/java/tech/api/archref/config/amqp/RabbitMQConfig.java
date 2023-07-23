@@ -13,9 +13,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
+    public final static String EXCHANGE = "archref.v1.character-processed";
+
     @Bean
     public FanoutExchange fanoutExchange() {
-        return new FanoutExchange("archref.v1.character-processed");
+        return new FanoutExchange(EXCHANGE);
     }
 
     @Bean
