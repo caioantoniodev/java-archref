@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: archref-ms
+  profiles:
+    active: dev
+
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/archref-ms}
+      auto-index-creation: false
+
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:redis123}
+
+  rabbitmq:
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    com:
+      api: ${LOGGING_LEVEL_LSA:TRACE}
+
+sensedia:
+  credentials:
+    oauth:
+      url: ${SENSEDIA_ACCESS_TOKEN_URL:https://api-demov3.sensedia.com/sandbox/oauth/v1}
+    client-id: ${SENSEDIA_CLIENT_ID:4625ef06-72f8-33bb-8827-5ea1cd0f1994}
+    client-secret: ${SENSEDIA_CLIENT_SECRET:59bf1068-9e75-33c4-9ed3-03a5396490e9}

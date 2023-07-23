@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: archref-ms
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/archref-ms
+      auto-index-creation: false
+
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:redis123}
+
+  rabbitmq:
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    com:
+      api: ${LOGGING_LEVEL_LSA:TRACE}
+
