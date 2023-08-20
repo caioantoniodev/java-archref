@@ -36,3 +36,6 @@ logging:
     com:
       api: ${LOGGING_LEVEL_LSA:TRACE}
 
+springdoc:
+  api-docs:
+    enabled: true

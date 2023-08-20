@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
+import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 import tech.api.archref.application.adapters.http.inbound.controllers.swagger.ICharacterControllerSwagger;
 import tech.api.archref.domain.services.ICharacterService;
 
@@ -17,7 +18,7 @@ public class CharacterController implements ICharacterControllerSwagger {
     }
 
     @Override
-    public ResponseEntity<?> post(CharacterCreateRequest characterCreateRequest) {
+    public ResponseEntity<CharacterResponse> post(CharacterCreateRequest characterCreateRequest) {
         characterService.create(characterCreateRequest);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
