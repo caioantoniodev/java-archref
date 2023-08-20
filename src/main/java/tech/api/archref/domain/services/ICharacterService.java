@@ -1,7 +1,8 @@
 package tech.api.archref.domain.services;
 
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
+import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 
 public interface ICharacterService {
-    void create(CharacterCreateRequest characterCreateRequest);
+    CharacterResponse create(CharacterCreateRequest characterCreateRequest);
 }

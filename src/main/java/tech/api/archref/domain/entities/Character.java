@@ -1,6 +1,24 @@
 package tech.api.archref.domain.entities;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+import tech.api.archref.domain.enums.Priority;
+import tech.api.archref.domain.valueobjects.Address;
+
+import java.time.Instant;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "character")
 public class Character {
+
     private String id;
 
     private String name;
@@ -9,56 +27,10 @@ public class Character {
 
     private Integer attackPoint;
 
-    private String address;
+    private Address address;
 
-    public String getId() {
-        return id;
-    }
+    private Instant birth;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getAttackPoint() {
-        return attackPoint;
-    }
-
-    public void setAttackPoint(Integer attackPoint) {
-        this.attackPoint = attackPoint;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "Character{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", attackPoint=" + attackPoint +
-                ", address='" + address + '\'' +
-                '}';
-    }
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 }

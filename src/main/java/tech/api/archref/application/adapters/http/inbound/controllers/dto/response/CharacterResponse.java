@@ -2,12 +2,15 @@ package tech.api.archref.application.adapters.http.inbound.controllers.dto.respo
 
 import org.springframework.beans.BeanUtils;
 import tech.api.archref.domain.entities.Character;
+import tech.api.archref.domain.enums.Priority;
+import tech.api.archref.domain.valueobjects.Address;
 
 public record CharacterResponse(String id,
                                 String name,
                                 String description,
                                 Integer attackPoint,
-                                String address) {
+                                Address address,
+                                Priority priority) {
 
 
     public static CharacterResponse from(final Character character) {
@@ -15,7 +18,8 @@ public record CharacterResponse(String id,
                 character.getName(),
                 character.getDescription(),
                 character.getAttackPoint(),
-                character.getAddress());
+                character.getAddress(),
+                character.getPriority());
 
         BeanUtils.copyProperties(character, characterDto);
         return characterDto;

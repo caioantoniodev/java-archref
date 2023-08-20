@@ -19,10 +19,8 @@ public class CharacterController implements ICharacterControllerSwagger {
 
     @Override
     public ResponseEntity<CharacterResponse> post(CharacterCreateRequest characterCreateRequest) {
-        characterService.create(characterCreateRequest);
+        var characterResponse = characterService.create(characterCreateRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(characterResponse);
     }
-
-
 }

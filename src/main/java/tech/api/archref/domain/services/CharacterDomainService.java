@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
+import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 import tech.api.archref.config.application.MessageConfig;
 import tech.api.archref.domain.ports.ICharacterMessageQueue;
 import tech.api.archref.infrastructure.database.mongo.ICharacterRepository;
@@ -26,7 +27,7 @@ public class CharacterDomainService implements ICharacterService {
     }
 
     @Override
-    public void create(CharacterCreateRequest characterCreateRequest) {
+    public CharacterResponse create(CharacterCreateRequest characterCreateRequest) {
         LOGGER.info(messageConfig.getMessage(MessageConstants.CREATING));
         var character = characterCreateRequest.toCharacter();
 
@@ -35,5 +36,7 @@ public class CharacterDomainService implements ICharacterService {
 
         LOGGER.info(messageConfig.getMessage(MessageConstants.PUBLISHING));
         characterMessageQueue.publishCharacterEvent(characterCreated, null);
+
+        return CharacterResponse.from(characterCreated);
     }
 }
