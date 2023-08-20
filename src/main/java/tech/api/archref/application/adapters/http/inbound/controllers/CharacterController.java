@@ -22,4 +22,6 @@ public class CharacterController implements ICharacterControllerSwagger {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
+
+
 }

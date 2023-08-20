@@ -20,6 +20,15 @@ spring:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
 
+  cloud:
+    stream:
+      bindings:
+        characterCreatedPublisher-out-0:
+          destination: x-archref-character-created-event
+        characterCreatedConsumer-in-0:
+          destination: x-archref-character-created-event
+          group: q-consumer-event
+
 server:
   port: 8080
 
@@ -28,10 +37,3 @@ logging:
     root: ${LOGGING_LEVEL_ROOT:INFO}
     com:
       api: ${LOGGING_LEVEL_LSA:TRACE}
-
-sensedia:
-  credentials:
-    oauth:
-      url: ${SENSEDIA_ACCESS_TOKEN_URL:https://api-demov3.sensedia.com/sandbox/oauth/v1}
-    client-id: ${SENSEDIA_CLIENT_ID:4625ef06-72f8-33bb-8827-5ea1cd0f1994}
-    client-secret: ${SENSEDIA_CLIENT_SECRET:59bf1068-9e75-33c4-9ed3-03a5396490e9}

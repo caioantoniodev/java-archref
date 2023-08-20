@@ -18,6 +18,15 @@ spring:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
 
+  cloud:
+    stream:
+      bindings:
+        characterCreatedPublisher-out-0:
+          destination: x-archref-character-created-event
+        characterCreatedConsumer-in-0:
+          destination: x-archref-character-created-event
+          group: q-consumer-event
+
 server:
   port: 8080
 

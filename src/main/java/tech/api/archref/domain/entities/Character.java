@@ -50,4 +50,15 @@ public class Character {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", attackPoint=" + attackPoint +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }
