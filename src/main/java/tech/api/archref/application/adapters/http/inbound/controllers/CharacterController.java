@@ -21,7 +21,7 @@ public class CharacterController implements ICharacterControllerSwagger {
     public ResponseEntity<CharacterResponse> post(CharacterCreateRequest characterCreateRequest) {
         characterService.create(characterCreateRequest);
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 

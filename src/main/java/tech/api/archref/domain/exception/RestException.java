@@ -7,13 +7,12 @@ public abstract class RestException extends RuntimeException {
 
     private final String code;
 
-    public abstract HttpStatus getStatus();
-
-
     protected RestException(String code, String message) {
         super(message);
         this.code = code;
     }
+
+    public abstract HttpStatus getStatus();
 
     /**
      * If an exception has a properties mapped response body code and message, it must override this method. If it has a runtime customized response

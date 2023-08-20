@@ -11,7 +11,7 @@ import tech.api.archref.utils.messages.MessageConstants;
 
 
 @Service
-public class CharacterDomainService implements ICharacterService{
+public class CharacterDomainService implements ICharacterService {
 
     private final ICharacterMessageQueue characterMessageQueue;
     private final ICharacterRepository characterRepository;

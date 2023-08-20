@@ -22,6 +22,7 @@ Esse microserviço apresenta o recurso de personagem (character) na qual haja um
 <br/>
 
 ## ✔️ Character
+
 <kbd>/character</kbd>
 
 Recurso que representa um personagem qualquer como um **entidade**
@@ -38,7 +39,9 @@ Recurso que representa um personagem qualquer como um **entidade**
 
 ## 📐 Arquitetura
 
-Esse microsserviço foi estruturado usando [arquitetura hexagonal](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)#:~:text=The%20hexagonal%20architecture%2C%20or%20ports,means%20of%20ports%20and%20adapters.) seguindo a estrutura de pastas abaixo
+Esse microsserviço foi estruturado
+usando [arquitetura hexagonal](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)#:~:text=The%20hexagonal%20architecture%2C%20or%20ports,means%20of%20ports%20and%20adapters.)
+seguindo a estrutura de pastas abaixo
 
 ```
   /src
@@ -76,14 +79,15 @@ Esse microsserviço foi estruturado usando [arquitetura hexagonal](https://en.wi
   Esse microsserviço usa armazenamento com banco de dados não relacional com [MongoDB](https://www.mongodb.com/).
 
 - ### 🟠 **RabbitMQ**
-  Esse microsserviço usa implementação de *event broker* com [RabbitMQ](https://www.rabbitmq.com/) com publicadores e consumidores da fila.
+  Esse microsserviço usa implementação de *event broker* com [RabbitMQ](https://www.rabbitmq.com/) com publicadores e
+  consumidores da fila.
 
 <br/>
 
 ## ⚡ Getting started
 
-
 ### Instalação do archetype localmente
+
 ```sh
 
 mvn archetype:create-from-project
@@ -92,13 +96,15 @@ mvn install
 ```
 
 ### Criação de um projeto a partir do archetype
+
 ```sh
 mvn archetype:generate
 ```
 
-###  Exemplo de definições do novo projeto
+### Exemplo de definições do novo projeto
 
-* Choose a number or apply filter: (Na listagem escolha o número correspondente ao projeto de archetype Ex.:3187: local -> tech.api.archref:archref-archetype)
+* Choose a number or apply filter: (Na listagem escolha o número correspondente ao projeto de archetype Ex.:3187:
+  local -> tech.api.archref:archref-archetype)
 * Define value for property 'groupId': com.api
 * Define value for property 'artifactId': empresa
 * Define value for property 'version' 1.0-SNAPSHOT:
@@ -106,12 +112,12 @@ mvn archetype:generate
 
 <br/>
 
-
 ## ⚡ Getting started
 
 Executa o docker compose para subir as imagens necessárias em container docker
 =======
 cp .env.sample .env
+
 ```
 
 Executa o docker compose para subir as imagens necessárias em container docker
@@ -125,12 +131,15 @@ cd docker && docker-compose up -d
 ## ☕ Executar
 
 ### Executando **local**
+
 ```
 yarn start:dev
 ```
->>>>>>> main
+
+> > > > > > > main
 
 ### Executando os **testes**
+
 ```sh
 docker-compose up -d
 ```
@@ -140,14 +149,17 @@ docker-compose up -d
 ## ☕ Executar
 
 ### Compilar o projeto
+
 ```
 mvn clean install
 ```[README.md](README.md)
 
 ### Executando **local**
 ```
+
 docker build -t springarchref:master .
-docker run -d -p 8080:8080 --name arc springarchref:master 
+docker run -d -p 8080:8080 --name arc springarchref:master
+
 ```
 
 ### Executando os **testes**
@@ -160,13 +172,15 @@ newman run backend-archref-collection.json -e backend-archref-dev-environment.js
 ```
 
 ### Executando a **cobertura**
+
 ```
 yarn test:cov
 ```
 
 ### **Swagger**
 
->>>>>>> main
+> > > > > > > main
+
 ```
 http://localhost:{you-port}/v1/api-docs
 ```
@@ -175,5 +189,6 @@ http://localhost:{you-port}/v1/api-docs
 
 ## 😄 Contribua
 
-Quer fazer parte desse projeto? Clique [AQUI](https://bitbucket.org/sensedia/archref-java/pull-requests/) e abra um `pull request` 🧩
+Quer fazer parte desse projeto? Clique [AQUI](https://bitbucket.org/sensedia/archref-java/pull-requests/) e abra
+um `pull request` 🧩
 <br/>
