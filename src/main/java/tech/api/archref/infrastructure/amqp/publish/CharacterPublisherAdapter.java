@@ -1,4 +1,5 @@
 package tech.api.archref.infrastructure.amqp.publish;
+
 import org.springframework.context.annotation.Configuration;
 import tech.api.archref.application.adapters.amqp.character.publisher.CharacterCreatedPublisher;
 import tech.api.archref.domain.entities.Character;
