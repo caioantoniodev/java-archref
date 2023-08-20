@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import tech.api.archref.domain.enums.Priority;
 import tech.api.archref.domain.valueobjects.Address;
 
-import java.time.Instant;
-
 @Data
 @Builder
 @NoArgsConstructor

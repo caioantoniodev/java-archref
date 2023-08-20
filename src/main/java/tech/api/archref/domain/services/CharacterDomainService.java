@@ -35,7 +35,7 @@ public class CharacterDomainService implements ICharacterService {
         var characterCreated = characterRepository.save(character);
 
         LOGGER.info(messageConfig.getMessage(MessageConstants.PUBLISHING));
-        characterMessageQueue.publishCharacterEvent(characterCreated, null);
+        characterMessageQueue.publishCharacterEvent(characterCreated);
 
         return CharacterResponse.from(characterCreated);
     }

@@ -1,7 +1,5 @@
 package tech.api.archref.infrastructure.amqp.publish;
-
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import tech.api.archref.application.adapters.amqp.character.publisher.CharacterCreatedPublisher;
 import tech.api.archref.domain.entities.Character;
 import tech.api.archref.domain.ports.ICharacterMessageQueue;
@@ -16,7 +14,7 @@ public class CharacterPublisherAdapter implements ICharacterMessageQueue {
     }
 
     @Override
-    public void publishCharacterEvent(Character character, HttpHeaders headers) {
-        characterPublisher.sendMessage(character, headers);
+    public void publishCharacterEvent(Character character) {
+        characterPublisher.sendMessage(character);
     }
 }

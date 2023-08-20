@@ -4,12 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.function.StreamBridge;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreatedEvent;
 import tech.api.archref.config.amqp.BrokerConfig;
 import tech.api.archref.config.application.MessageConfig;
 import tech.api.archref.domain.entities.Character;
 import tech.api.archref.utils.messages.MessageConstants;
+
+import java.util.UUID;
 
 @Component
 public class CharacterCreatedPublisher {
@@ -25,8 +27,10 @@ public class CharacterCreatedPublisher {
         this.messageConfig = messageConfig;
     }
 
-    public void sendMessage(Character character, HttpHeaders headers) {
+    public void sendMessage(Character character) {
         LOGGER.info(messageConfig.getMessage(MessageConstants.PUBLISHING_QUEUE), BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL);
-        streamBridge.send(BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL, character);
+
+        var characterCreatedEvent = new CharacterCreatedEvent(UUID.randomUUID().toString(), character);
+        streamBridge.send(BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL, characterCreatedEvent);
     }
 }
