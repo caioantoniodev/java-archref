@@ -29,8 +29,6 @@ public class Character {
 
     private Address address;
 
-    private Instant birth;
-
     @Enumerated(EnumType.STRING)
     private Priority priority;
 }
