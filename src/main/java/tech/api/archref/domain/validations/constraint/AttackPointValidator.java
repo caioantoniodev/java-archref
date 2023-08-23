@@ -16,22 +16,20 @@ public class AttackPointValidator implements ConstraintValidator<ValidateAttackP
     public boolean isValid(CharacterCreateRequest characterCreateRequest, ConstraintValidatorContext constraintValidatorContext) {
         isValid = true;
 
-        if (characterCreateRequest.attackPoint() != null) {
-            if (Priority.NONE.equals(characterCreateRequest.priority())) {
-                validateNonePriority(characterCreateRequest, constraintValidatorContext);
-            }
+        if (Priority.NONE.equals(characterCreateRequest.priority())) {
+            validateNonePriority(characterCreateRequest, constraintValidatorContext);
+        }
 
-            if (Priority.LOW.equals(characterCreateRequest.priority())) {
-                validateLowPriority(characterCreateRequest, constraintValidatorContext);
-            }
+        if (Priority.LOW.equals(characterCreateRequest.priority())) {
+            validateLowPriority(characterCreateRequest, constraintValidatorContext);
+        }
 
-            if (Priority.MEDIUM.equals(characterCreateRequest.priority())) {
-                validateMediumPriority(characterCreateRequest, constraintValidatorContext);
-            }
+        if (Priority.MEDIUM.equals(characterCreateRequest.priority())) {
+            validateMediumPriority(characterCreateRequest, constraintValidatorContext);
+        }
 
-            if (Priority.HIGH.equals(characterCreateRequest.priority())) {
-                validateHighPriority(characterCreateRequest, constraintValidatorContext);
-            }
+        if (Priority.HIGH.equals(characterCreateRequest.priority())) {
+            validateHighPriority(characterCreateRequest, constraintValidatorContext);
         }
 
         return isValid;

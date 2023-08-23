@@ -42,11 +42,14 @@ public class ControllerAdvice {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<Void> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        e.printStackTrace();
         return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<List<ErrorResponse>> methodArgumentTypeMismatchException(final MethodArgumentTypeMismatchException e) {
+        e.printStackTrace();
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonList(ErrorResponse.builder()
                 .code(FIELD_INVALID)
                 .message(getMessage(FIELD_INVALID, e.getName()))
@@ -55,11 +58,15 @@ public class ControllerAdvice {
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<Error> mediaTypeNotFoundException(final HttpMediaTypeNotSupportedException e) {
+        e.printStackTrace();
+
         return new ResponseEntity<>(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<List<ErrorResponse>> assertionException(final HttpMessageNotReadableException e) {
+        e.printStackTrace();
+
         if (e.getCause() instanceof JsonMappingException cause) {
             String field = cause.getPath().stream()
                     .map(JsonMappingException.Reference::getFieldName)
@@ -71,12 +78,15 @@ public class ControllerAdvice {
                             .message(getMessage(FIELD_INVALID, field))
                             .build()));
         }
+
         return defaultBadRequestError();
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<List<ErrorResponse>> missingServletRequestParameterException(
             final MissingServletRequestParameterException e) {
+        e.printStackTrace();
+
         return defaultBadRequestError();
     }
 
@@ -99,6 +109,8 @@ public class ControllerAdvice {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<List<ErrorResponse>> handleConstraintViolationException(
             ConstraintViolationException e) {
+        e.printStackTrace();
+
         List<ErrorResponse> errors = e.getConstraintViolations().stream()
                 .map(constraint -> new ErrorResponse(constraint.getMessageTemplate(),
                         ((PathImpl) constraint.getPropertyPath()).getLeafNode()))
@@ -108,13 +120,13 @@ public class ControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception exception) {
-        log.error(exception.getMessage(), exception);
+        exception.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @ExceptionHandler(RestException.class)
     public ResponseEntity<Object> handleRestException(RestException restException) {
-        log.error(restException.getMessage(), restException);
+        restException.printStackTrace();
 
         if (restException.getResponseBodyCode() != null) {
             return ResponseEntity
