@@ -22,7 +22,7 @@ import tech.api.archref.application.adapters.http.inbound.controllers.dto.respon
 public interface ICharacterControllerSwagger {
 
     @PostMapping
-    @Operation(description = "Criação de um Character")
+    @Operation(description = "Criação de um personagem")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Criado"),
             @ApiResponse(responseCode = "400", description = "Erro de validação do contrato enviado.", content = {
