@@ -1,5 +1,6 @@
 package tech.api.archref.application.adapters.amqp.character.publisher;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
@@ -12,16 +13,12 @@ import tech.api.archref.utils.messages.MessageConstants;
 import java.util.UUID;
 
 @Component
+@AllArgsConstructor
 @Slf4j
 public class CharacterCreatedPublisher {
 
     private final StreamBridge streamBridge;
     private final MessageConfig messageConfig;
-
-    public CharacterCreatedPublisher(StreamBridge streamBridge, MessageConfig messageConfig) {
-        this.streamBridge = streamBridge;
-        this.messageConfig = messageConfig;
-    }
 
     public void sendMessage(Character character) {
         log.info(messageConfig.getMessage(MessageConstants.PUBLISHING_QUEUE, BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL));
