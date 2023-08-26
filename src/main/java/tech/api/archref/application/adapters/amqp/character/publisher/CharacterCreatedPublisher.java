@@ -1,9 +1,6 @@
 package tech.api.archref.application.adapters.amqp.character.publisher;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Component;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreatedEvent;
@@ -27,7 +24,7 @@ public class CharacterCreatedPublisher {
     }
 
     public void sendMessage(Character character) {
-        log.info(messageConfig.getMessage(MessageConstants.PUBLISHING_QUEUE), BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL);
+        log.info(messageConfig.getMessage(MessageConstants.PUBLISHING_QUEUE, BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL));
 
         var characterCreatedEvent = new CharacterCreatedEvent(UUID.randomUUID().toString(), character);
         streamBridge.send(BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL, characterCreatedEvent);

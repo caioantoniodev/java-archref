@@ -10,9 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.ErrorResponse;
@@ -42,4 +40,22 @@ public interface ICharacterControllerSwagger {
             })
     })
     ResponseEntity<CharacterResponse> post(@RequestBody @Valid CharacterCreateRequest characterCreateRequest);
+
+
+    @GetMapping("/{id}")
+    @Operation(description = "Busca de um personagem")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Personagem Encontrado"),
+            @ApiResponse(responseCode = "404", description = "Personagem não encontrada.", content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor ou serviço.", content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))
+            })
+    })
+    ResponseEntity<CharacterResponse> get(@PathVariable("id") String id);
 }
