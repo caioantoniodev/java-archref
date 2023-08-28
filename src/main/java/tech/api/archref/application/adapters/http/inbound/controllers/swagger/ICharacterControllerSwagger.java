@@ -58,4 +58,11 @@ public interface ICharacterControllerSwagger {
             })
     })
     ResponseEntity<CharacterResponse> get(@PathVariable("id") String id);
+
+    @DeleteMapping("/{id}")
+    @Operation(description = "Deletar um personagem")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Deletado."),
+    })
+    ResponseEntity<?> delete(@PathVariable("id") String id);
 }

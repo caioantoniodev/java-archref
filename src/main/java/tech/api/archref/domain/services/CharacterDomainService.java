@@ -2,6 +2,7 @@ package tech.api.archref.domain.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
@@ -13,6 +14,8 @@ import tech.api.archref.domain.ports.ICharacterMessageQueue;
 import tech.api.archref.domain.ports.ICharacterService;
 import tech.api.archref.infrastructure.database.mongo.ICharacterRepository;
 import tech.api.archref.utils.messages.MessageConstants;
+
+import java.util.Optional;
 
 import static tech.api.archref.domain.exception.MessageErrorCodeConstants.CHARACTER_NOT_FOUND;
 
@@ -35,7 +38,6 @@ public class CharacterDomainService implements ICharacterService {
         log.info(messageConfig.getMessage(MessageConstants.SAVING));
         var characterCreated = characterRepository.save(character);
 
-        log.info(messageConfig.getMessage(MessageConstants.PUBLISHING));
         characterMessageQueue.publishCharacterEvent(characterCreated);
 
         return CharacterResponse.from(characterCreated);
@@ -47,17 +49,34 @@ public class CharacterDomainService implements ICharacterService {
 
         if (characterOptional.isEmpty()) {
             log.info(messageConfig.getMessage(MessageConstants.RESOURCE_NOT_FOUND_CACHE, Character.class.getName(), id));
-            var characterRepositoryById = characterRepository.findById(id);
 
-            if (characterRepositoryById.isPresent()) {
+            var optionalCharacter = findCharacterById(id);
+
+            if (optionalCharacter.isPresent()) {
                 log.info(messageConfig.getMessage(MessageConstants.RESOURCE_FOUND, Character.class.getName(), id));
-                characterCache.save(characterRepositoryById.get());
-                return CharacterResponse.from(characterRepositoryById.get());
+                characterCache.save(optionalCharacter.get());
+                return CharacterResponse.from(optionalCharacter.get());
             } else {
                 throw new NotFoundException(CHARACTER_NOT_FOUND, messageConfig.getMessage(MessageConstants.RESOURCE_NOT_FOUND, Character.class.getName(), id));
             }
         }
 
         return CharacterResponse.from(characterOptional.get());
+    }
+
+    private Optional<Character> findCharacterById(String id) {
+        return characterRepository.findById(id);
+    }
+
+    @Override
+    public void delete(String id) {
+        log.info(messageConfig.getMessage(MessageConstants.EXCLUDING, id));
+
+        var character = this.findCharacterById(id)
+                .orElseThrow(() -> new NotFoundException(CHARACTER_NOT_FOUND,
+                        messageConfig.getMessage(MessageConstants.RESOURCE_NOT_FOUND, Character.class.getName(), id)));
+
+        log.info(messageConfig.getMessage(MessageConstants.RESOURCE_EXCLUDE, Character.class.getName(), id));
+        characterRepository.deleteById(character.getId());
     }
 }

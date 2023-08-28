@@ -29,4 +29,10 @@ public class CharacterController implements ICharacterControllerSwagger {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(characterResponse);
     }
+
+    @Override
+    public ResponseEntity<?> delete(String id) {
+        characterService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

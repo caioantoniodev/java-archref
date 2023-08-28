@@ -21,9 +21,11 @@ public class CharacterCreatedPublisher {
     private final MessageConfig messageConfig;
 
     public void sendMessage(Character character) {
-        log.info(messageConfig.getMessage(MessageConstants.PUBLISHING_QUEUE, BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL));
 
         var characterCreatedEvent = new CharacterCreatedEvent(UUID.randomUUID().toString(), character);
+        log.info(messageConfig.getMessage(MessageConstants.PUBLISHING, characterCreatedEvent.eventId()));
+
+        log.info(messageConfig.getMessage(MessageConstants.PUBLISHING_QUEUE, BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL));
         streamBridge.send(BrokerConfig.CHARACTER_CREATED_EVENT_CHANNEL, characterCreatedEvent);
     }
 }

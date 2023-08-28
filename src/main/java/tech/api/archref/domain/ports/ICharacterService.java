@@ -7,4 +7,6 @@ public interface ICharacterService {
     CharacterResponse create(CharacterCreateRequest characterCreateRequest);
 
     CharacterResponse getById(String id);
+
+    void delete(String id);
 }
