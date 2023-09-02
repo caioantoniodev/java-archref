@@ -17,7 +17,7 @@ public record CharacterResponse(String id,
 
 
     public static CharacterResponse from(final Character character) {
-        var characterDto = new CharacterResponse(character.getId(),
+        var characterDto = new CharacterResponse(character.getId().toString(),
                 character.getName(),
                 character.getDescription(),
                 character.getAttackPoint(),

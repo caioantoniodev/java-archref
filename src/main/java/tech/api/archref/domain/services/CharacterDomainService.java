@@ -76,6 +76,6 @@ public class CharacterDomainService implements ICharacterService {
                         messageConfig.getMessage(MessageConstants.RESOURCE_NOT_FOUND, Character.class.getName(), id)));
 
         log.info(messageConfig.getMessage(MessageConstants.RESOURCE_EXCLUDE, Character.class.getName(), id));
-        characterRepository.deleteById(character.getId());
+        characterRepository.deleteById(String.valueOf(character.getId()));
     }
 }
