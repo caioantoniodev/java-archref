@@ -2,7 +2,6 @@ package tech.api.archref.domain.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
@@ -32,10 +31,10 @@ public class CharacterDomainService implements ICharacterService {
 
     @Override
     public CharacterResponse create(CharacterCreateRequest characterCreateRequest) {
-        log.info(messageConfig.getMessage(MessageConstants.CREATING));
+        log.info(messageConfig.getMessage(MessageConstants.CREATING, characterCreateRequest));
         var character = characterCreateRequest.toCharacter();
 
-        log.info(messageConfig.getMessage(MessageConstants.SAVING));
+        log.info(messageConfig.getMessage(MessageConstants.SAVING, character));
         var characterCreated = characterRepository.save(character);
 
         characterMessageQueue.publishCharacterEvent(characterCreated);
