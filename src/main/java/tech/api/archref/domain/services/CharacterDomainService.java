@@ -9,12 +9,15 @@ import tech.api.archref.application.adapters.http.inbound.controllers.dto.reques
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 import tech.api.archref.application.adapters.http.outbound.ICharacterMarvelApi;
 import tech.api.archref.application.adapters.http.outbound.dto.request.Params;
+import tech.api.archref.application.adapters.http.outbound.dto.response.MarvelCharacterDetailResponse;
 import tech.api.archref.config.application.MessageConfig;
 import tech.api.archref.domain.entities.Character;
+import tech.api.archref.domain.enums.Priority;
 import tech.api.archref.domain.exception.NotFoundException;
 import tech.api.archref.domain.ports.ICharacterCache;
 import tech.api.archref.domain.ports.ICharacterMessageQueue;
 import tech.api.archref.domain.ports.ICharacterService;
+import tech.api.archref.domain.valueobjects.Address;
 import tech.api.archref.infrastructure.database.mongo.ICharacterRepository;
 import tech.api.archref.utils.messages.MessageConstants;
 
@@ -93,9 +96,19 @@ public class CharacterDomainService implements ICharacterService {
     @Override
     public CharacterResponse createRandom() {
         var parameters = this.dealParameters();
-        var character = characterMarvelApi.RetrieveCharacterById(1009491L, parameters.ts(), parameters.apiKey(), parameters.hash());
+        var marvelCharacters = characterMarvelApi.RetrieveCharacterById(1009491L, parameters.ts(), parameters.apiKey(), parameters.hash());
 
-        return null;
+        var optionalMarvelCharacterDetailResponse = marvelCharacters.marvelCharacter().marvelCharacterDetails().stream().findFirst();
+
+        if (optionalMarvelCharacterDetailResponse.isEmpty())
+            throw new RuntimeException("Error");
+
+        var marvelCharacterDetailResponse = optionalMarvelCharacterDetailResponse.get();
+        var characterCreateRequest = new CharacterCreateRequest(marvelCharacterDetailResponse.name(),
+                marvelCharacterDetailResponse.description(), 1, new Address(), Priority.NONE);
+
+
+        return this.create(characterCreateRequest);
     }
 
     private Params dealParameters() {

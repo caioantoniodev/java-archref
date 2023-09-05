@@ -38,7 +38,7 @@ public class CharacterController implements ICharacterControllerSwagger {
 
     @Override
     public ResponseEntity<?> postRandom() {
-        characterService.createRandom();
-        return ResponseEntity.noContent().build();
+        var characterResponse = characterService.createRandom();
+        return ResponseEntity.ok(characterResponse);
     }
 }
