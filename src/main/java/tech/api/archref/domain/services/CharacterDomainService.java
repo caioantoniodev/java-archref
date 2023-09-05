@@ -93,11 +93,17 @@ public class CharacterDomainService implements ICharacterService {
 
     @Override
     public CharacterResponse createRandom() {
-        var parameters = this.dealParameters();
 
         var characterIds = applicationProps.getCharacterIds();
-        var randomCharacterId = this.getRandomCharacterId(characterIds);
+        var randomCharacterId = this.retrieveRandomCharacterId(characterIds);
 
+        var parameters = this.dealParameters();
+        var characterCreateRequest = this.dealCharacterToCreate(randomCharacterId, parameters);
+
+        return this.create(characterCreateRequest);
+    }
+
+    private CharacterCreateRequest dealCharacterToCreate(Long randomCharacterId, Params parameters) {
         var marvelCharacters = characterMarvelApi.RetrieveCharacterById(randomCharacterId, parameters.ts(), parameters.apiKey(), parameters.hash());
 
         var optionalMarvelCharacterDetailResponse = marvelCharacters.marvelCharacter().marvelCharacterDetails().stream().findFirst();
@@ -106,21 +112,18 @@ public class CharacterDomainService implements ICharacterService {
             throw new RuntimeException("Error");
 
         var marvelCharacterDetailResponse = optionalMarvelCharacterDetailResponse.get();
+        var modified = marvelCharacterDetailResponse.modified().toLocalDateTime();
 
-
-        var modified = marvelCharacterDetailResponse.modified();
-        var characterCreateRequest = new CharacterCreateRequest(marvelCharacterDetailResponse.name(),
+        return new CharacterCreateRequest(marvelCharacterDetailResponse.name(),
                 marvelCharacterDetailResponse.description(),
                 1,
                 new Address(),
                 Priority.NONE,
-                modified.toLocalDateTime(),
-                modified.toLocalDateTime());
-
-        return this.create(characterCreateRequest);
+                modified,
+                modified);
     }
 
-    private Long getRandomCharacterId(List<Long> characterIds) {
+    private Long retrieveRandomCharacterId(List<Long> characterIds) {
         Random rand = new Random();
         return characterIds.get(rand.nextInt(characterIds.size()));
     }
