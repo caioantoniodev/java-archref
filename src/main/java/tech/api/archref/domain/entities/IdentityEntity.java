@@ -7,7 +7,6 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 @Data
 public class IdentityEntity {
@@ -20,5 +19,5 @@ public class IdentityEntity {
     private LocalDateTime createdAt;
 
     @CreationTimestamp
-    private ZonedDateTime updateAt;
+    private LocalDateTime updateAt;
 }

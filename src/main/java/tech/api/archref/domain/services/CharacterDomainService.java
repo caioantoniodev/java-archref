@@ -1,14 +1,14 @@
 package tech.api.archref.domain.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 import tech.api.archref.application.adapters.http.outbound.ICharacterMarvelApi;
 import tech.api.archref.application.adapters.http.outbound.dto.request.Params;
+import tech.api.archref.config.application.ApplicationProps;
 import tech.api.archref.config.application.MessageConfig;
 import tech.api.archref.domain.entities.Character;
 import tech.api.archref.domain.enums.Priority;
@@ -20,7 +20,9 @@ import tech.api.archref.domain.valueobjects.Address;
 import tech.api.archref.infrastructure.database.mongo.ICharacterRepository;
 import tech.api.archref.utils.messages.MessageConstants;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 import static tech.api.archref.domain.exception.MessageErrorCodeConstants.CHARACTER_NOT_FOUND;
@@ -28,7 +30,7 @@ import static tech.api.archref.domain.exception.MessageErrorCodeConstants.CHARAC
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CharacterDomainService implements ICharacterService {
 
     private final ICharacterMessageQueue characterMessageQueue;
@@ -37,10 +39,7 @@ public class CharacterDomainService implements ICharacterService {
     private final MessageConfig messageConfig;
     private final ICharacterMarvelApi characterMarvelApi;
 
-    @Value("${marvelapi.publickey}")
-    private String publicKey;
-    @Value("${marvelapi.privatekey}")
-    private String privateKey;
+    private ApplicationProps applicationProps;
 
     @Override
     public CharacterResponse create(CharacterCreateRequest characterCreateRequest) {
@@ -95,7 +94,11 @@ public class CharacterDomainService implements ICharacterService {
     @Override
     public CharacterResponse createRandom() {
         var parameters = this.dealParameters();
-        var marvelCharacters = characterMarvelApi.RetrieveCharacterById(1009491L, parameters.ts(), parameters.apiKey(), parameters.hash());
+
+        var characterIds = applicationProps.getCharacterIds();
+        var randomCharacterId = this.getRandomCharacterId(characterIds);
+
+        var marvelCharacters = characterMarvelApi.RetrieveCharacterById(randomCharacterId, parameters.ts(), parameters.apiKey(), parameters.hash());
 
         var optionalMarvelCharacterDetailResponse = marvelCharacters.marvelCharacter().marvelCharacterDetails().stream().findFirst();
 
@@ -103,18 +106,30 @@ public class CharacterDomainService implements ICharacterService {
             throw new RuntimeException("Error");
 
         var marvelCharacterDetailResponse = optionalMarvelCharacterDetailResponse.get();
-        var characterCreateRequest = new CharacterCreateRequest(marvelCharacterDetailResponse.name(),
-                marvelCharacterDetailResponse.description(), 1, new Address(), Priority.NONE);
 
+
+        var modified = marvelCharacterDetailResponse.modified();
+        var characterCreateRequest = new CharacterCreateRequest(marvelCharacterDetailResponse.name(),
+                marvelCharacterDetailResponse.description(),
+                1,
+                new Address(),
+                Priority.NONE,
+                modified.toLocalDateTime(),
+                modified.toLocalDateTime());
 
         return this.create(characterCreateRequest);
+    }
+
+    private Long getRandomCharacterId(List<Long> characterIds) {
+        Random rand = new Random();
+        return characterIds.get(rand.nextInt(characterIds.size()));
     }
 
     private Params dealParameters() {
 
         var ts = UUID.randomUUID().toString();
-        var hash = DigestUtils.md5Hex(String.format("%s%s%s", ts, this.privateKey, this.publicKey));
+        var hash = DigestUtils.md5Hex(String.format("%s%s%s", ts, applicationProps.getPrivateKey(), applicationProps.getPublicKey()));
 
-        return new Params(ts, this.publicKey, hash);
+        return new Params(ts, applicationProps.getPublicKey(), hash);
     }
 }

@@ -11,7 +11,7 @@ import tech.api.archref.application.adapters.http.outbound.dto.response.MarvelAp
 public interface ICharacterMarvelApi {
 
     @RequestMapping(method = RequestMethod.GET, value = "/characters/{id}")
-    MarvelApiResponse RetrieveCharacterById(@PathVariable long id,
+    MarvelApiResponse RetrieveCharacterById(@PathVariable Long id,
                                             @RequestParam("ts") String ts,
                                             @RequestParam("apikey") String apikey,
                                             @RequestParam("hash") String hash);
