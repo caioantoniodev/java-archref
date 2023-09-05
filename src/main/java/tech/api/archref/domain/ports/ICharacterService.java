@@ -9,4 +9,6 @@ public interface ICharacterService {
     CharacterResponse getById(String id);
 
     void delete(String id);
+
+    CharacterResponse createRandom();
 }

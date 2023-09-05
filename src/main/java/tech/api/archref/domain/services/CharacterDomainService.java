@@ -2,9 +2,13 @@ package tech.api.archref.domain.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
+import tech.api.archref.application.adapters.http.outbound.ICharacterMarvelApi;
+import tech.api.archref.application.adapters.http.outbound.dto.request.Params;
 import tech.api.archref.config.application.MessageConfig;
 import tech.api.archref.domain.entities.Character;
 import tech.api.archref.domain.exception.NotFoundException;
@@ -15,6 +19,7 @@ import tech.api.archref.infrastructure.database.mongo.ICharacterRepository;
 import tech.api.archref.utils.messages.MessageConstants;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static tech.api.archref.domain.exception.MessageErrorCodeConstants.CHARACTER_NOT_FOUND;
 
@@ -28,6 +33,12 @@ public class CharacterDomainService implements ICharacterService {
     private final ICharacterRepository characterRepository;
     private final ICharacterCache characterCache;
     private final MessageConfig messageConfig;
+    private final ICharacterMarvelApi characterMarvelApi;
+
+    @Value("${marvelapi.publickey}")
+    private String publicKey;
+    @Value("${marvelapi.privatekey}")
+    private String privateKey;
 
     @Override
     public CharacterResponse create(CharacterCreateRequest characterCreateRequest) {
@@ -77,5 +88,21 @@ public class CharacterDomainService implements ICharacterService {
 
         log.info(messageConfig.getMessage(MessageConstants.RESOURCE_EXCLUDE, Character.class.getName(), id));
         characterRepository.deleteById(String.valueOf(character.getId()));
+    }
+
+    @Override
+    public CharacterResponse createRandom() {
+        var parameters = this.dealParameters();
+        var character = characterMarvelApi.RetrieveCharacterById(1009491L, parameters.ts(), parameters.apiKey(), parameters.hash());
+
+        return null;
+    }
+
+    private Params dealParameters() {
+
+        var ts = UUID.randomUUID().toString();
+        var hash = DigestUtils.md5Hex(String.format("%s%s%s", ts, this.privateKey, this.publicKey));
+
+        return new Params(ts, this.publicKey, hash);
     }
 }

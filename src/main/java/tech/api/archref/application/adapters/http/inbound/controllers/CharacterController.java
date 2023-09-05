@@ -35,4 +35,10 @@ public class CharacterController implements ICharacterControllerSwagger {
         characterService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Override
+    public ResponseEntity<?> postRandom() {
+        characterService.createRandom();
+        return ResponseEntity.noContent().build();
+    }
 }

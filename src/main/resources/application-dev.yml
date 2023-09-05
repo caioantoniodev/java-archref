@@ -39,3 +39,7 @@ logging:
 springdoc:
   api-docs:
     enabled: true
+
+marvelapi:
+  publickey: ${PUBLIC_KEY}
+  privatekey: ${PRIVATE_KEY}

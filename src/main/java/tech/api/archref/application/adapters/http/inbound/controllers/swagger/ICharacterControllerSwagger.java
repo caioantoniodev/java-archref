@@ -65,4 +65,7 @@ public interface ICharacterControllerSwagger {
             @ApiResponse(responseCode = "204", description = "Deletado."),
     })
     ResponseEntity<?> delete(@PathVariable("id") String id);
+
+    @PostMapping("/random")
+    ResponseEntity<?> postRandom();
 }
