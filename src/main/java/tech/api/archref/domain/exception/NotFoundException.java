@@ -2,7 +2,7 @@ package tech.api.archref.domain.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class NotFoundException  extends RestException{
+public class NotFoundException extends RestException {
 
     public NotFoundException(String code, String message) {
         super(code, message);

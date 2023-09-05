@@ -9,7 +9,6 @@ import tech.api.archref.application.adapters.http.inbound.controllers.dto.reques
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 import tech.api.archref.application.adapters.http.outbound.ICharacterMarvelApi;
 import tech.api.archref.application.adapters.http.outbound.dto.request.Params;
-import tech.api.archref.application.adapters.http.outbound.dto.response.MarvelCharacterDetailResponse;
 import tech.api.archref.config.application.MessageConfig;
 import tech.api.archref.domain.entities.Character;
 import tech.api.archref.domain.enums.Priority;

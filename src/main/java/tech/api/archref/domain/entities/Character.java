@@ -13,7 +13,7 @@ import tech.api.archref.domain.valueobjects.Address;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "character")
-public class Character extends IdentityEntity{
+public class Character extends IdentityEntity {
 
     private String name;
 

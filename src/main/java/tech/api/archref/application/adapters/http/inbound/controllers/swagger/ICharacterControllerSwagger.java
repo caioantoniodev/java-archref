@@ -15,7 +15,7 @@ import tech.api.archref.application.adapters.http.inbound.controllers.dto.reques
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.ErrorResponse;
 
-@RequestMapping(value = "/v1/character", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/v1/characters", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "Character", description = "Operações referentes ao personagem")
 public interface ICharacterControllerSwagger {
 
