@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -67,5 +69,31 @@ public interface ICharacterControllerSwagger {
     ResponseEntity<?> delete(@PathVariable("id") String id);
 
     @PostMapping("/random")
+    @Operation(description = "Criação de um personagem aleatório")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Criado"),
+            @ApiResponse(responseCode = "400", description = "Erro de validação do contrato enviado.", content = {
+                    @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class)))
+            }),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor ou serviço.", content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))
+            })
+    })
     ResponseEntity<?> postRandom();
+
+    @Operation(description = "Retorna a lista paginada de Characters")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista paginada de Characters."),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor ou serviço.", content = {
+                    @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))
+            })
+    })
+    @GetMapping
+    ResponseEntity<Page<CharacterResponse>> getList(@RequestParam Pageable params);
 }

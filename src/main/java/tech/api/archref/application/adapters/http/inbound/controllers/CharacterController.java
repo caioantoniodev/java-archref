@@ -1,6 +1,8 @@
 package tech.api.archref.application.adapters.http.inbound.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,5 +42,11 @@ public class CharacterController implements ICharacterControllerSwagger {
     public ResponseEntity<?> postRandom() {
         var characterResponse = characterService.createRandom();
         return ResponseEntity.ok(characterResponse);
+    }
+
+    @Override
+    public ResponseEntity<Page<CharacterResponse>> getList(Pageable pageable) {
+        Page<CharacterResponse> result = characterService.getPages(pageable);
+        return ResponseEntity.ok(result);
     }
 }

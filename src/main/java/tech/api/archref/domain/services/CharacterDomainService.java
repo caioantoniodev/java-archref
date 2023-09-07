@@ -3,6 +3,8 @@ package tech.api.archref.domain.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
@@ -102,6 +104,17 @@ public class CharacterDomainService implements ICharacterService {
 
         return this.create(characterCreateRequest);
     }
+
+    @Override
+    public Page<CharacterResponse> getPages(Pageable pageable) {
+        log.info(messageConfig.getMessage(MessageConstants.EXECUTING_QUERY));
+        var characterPage = characterRepository.findAll(pageable);
+
+        var characterResponses = characterPage.stream().map(CharacterResponse::from).toList();
+
+        return null;
+    }
+
 
     private CharacterCreateRequest dealCharacterToCreate(Long randomCharacterId, Params parameters) {
         var marvelCharacters = characterMarvelApi.RetrieveCharacterById(randomCharacterId, parameters.ts(), parameters.apiKey(), parameters.hash());
