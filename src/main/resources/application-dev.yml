@@ -40,10 +40,23 @@ springdoc:
   api-docs:
     enabled: true
 
-marvelapi:
-  publickey: ${PUBLIC_KEY}
-  privatekey: ${PRIVATE_KEY}
-  characterids:
+management:
+  endpoints:
+    health:
+      sensitive: false
+  health:
+    db:
+      enabled: true
+    defaults:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+
+marvel-api:
+  public-key: ${PUBLIC_KEY}
+  private-key: ${PRIVATE_KEY}
+  character-ids:
     - 1009491
     - 1009351
     - 1009368

@@ -3,7 +3,6 @@ package tech.api.archref.domain.validations.constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
-import tech.api.archref.domain.enums.Priority;
 import tech.api.archref.domain.validations.annotations.ValidateAttackPoint;
 
 import static tech.api.archref.domain.exception.MessageErrorCodeConstants.INVALID_ATTACKPOINT_FIELD;
@@ -16,45 +15,19 @@ public class AttackPointValidator implements ConstraintValidator<ValidateAttackP
     public boolean isValid(CharacterCreateRequest characterCreateRequest, ConstraintValidatorContext constraintValidatorContext) {
         isValid = true;
 
-        if (Priority.NONE.equals(characterCreateRequest.priority())) {
-            validateNonePriority(characterCreateRequest, constraintValidatorContext);
-        }
-
-        if (Priority.LOW.equals(characterCreateRequest.priority())) {
-            validateLowPriority(characterCreateRequest, constraintValidatorContext);
-        }
-
-        if (Priority.MEDIUM.equals(characterCreateRequest.priority())) {
-            validateMediumPriority(characterCreateRequest, constraintValidatorContext);
-        }
-
-        if (Priority.HIGH.equals(characterCreateRequest.priority())) {
-            validateHighPriority(characterCreateRequest, constraintValidatorContext);
+        switch (characterCreateRequest.priority()) {
+            case NONE -> validatePriority(characterCreateRequest.attackPoint(), 5, constraintValidatorContext);
+            case LOW -> validatePriority(characterCreateRequest.attackPoint(), 7, constraintValidatorContext);
+            case MEDIUM -> validatePriority(characterCreateRequest.attackPoint(), 9, constraintValidatorContext);
+            case HIGH -> validatePriority(characterCreateRequest.attackPoint(), 13, constraintValidatorContext);
+            default -> throw new IllegalStateException(String.format("Unexpected value: %s", characterCreateRequest.priority()));
         }
 
         return isValid;
     }
 
-    private void validateNonePriority(CharacterCreateRequest characterCreateRequest, ConstraintValidatorContext constraintValidatorContext) {
-        if (characterCreateRequest.attackPoint() >= 5) {
-            addFieldListError(constraintValidatorContext);
-        }
-    }
-
-    private void validateLowPriority(CharacterCreateRequest characterCreateRequest, ConstraintValidatorContext constraintValidatorContext) {
-        if (characterCreateRequest.attackPoint() >= 7) {
-            addFieldListError(constraintValidatorContext);
-        }
-    }
-
-    private void validateMediumPriority(CharacterCreateRequest characterCreateRequest, ConstraintValidatorContext constraintValidatorContext) {
-        if (characterCreateRequest.attackPoint() >= 9) {
-            addFieldListError(constraintValidatorContext);
-        }
-    }
-
-    private void validateHighPriority(CharacterCreateRequest characterCreateRequest, ConstraintValidatorContext constraintValidatorContext) {
-        if (characterCreateRequest.attackPoint() >= 13) {
+    private void validatePriority(Integer attackPoint, Integer limitPriority, ConstraintValidatorContext constraintValidatorContext) {
+        if (new HasInvalidAttackPoint().test(attackPoint, limitPriority) ) {
             addFieldListError(constraintValidatorContext);
         }
     }

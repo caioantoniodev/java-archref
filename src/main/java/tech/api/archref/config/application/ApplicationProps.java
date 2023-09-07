@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "marvelapi")
+@ConfigurationProperties(prefix = "marvel-api")
 public class ApplicationProps {
 
     private String publicKey;

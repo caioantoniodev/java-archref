@@ -1,6 +1,6 @@
 package tech.api.archref.application.adapters.http.inbound.controllers.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.annotation.Nullable;
@@ -20,13 +20,14 @@ import static tech.api.archref.domain.exception.MessageErrorCodeConstants.FIELD_
 
 @ValidateAttackPoint
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonIgnoreProperties(value = {"created_at", "updated_at"})
 public record CharacterCreateRequest(@NotEmpty(message = FIELD_MAY_NOT_BE_NULL) String name,
                                      @NotEmpty(message = FIELD_MAY_NOT_BE_NULL) String description,
                                      @Min(1) @Max(13) @NotNull(message = FIELD_MAY_NOT_BE_NULL) Integer attackPoint,
                                      @Nullable Address address,
                                      @NotNull(message = FIELD_MAY_NOT_BE_NULL) Priority priority,
-                                     @Nullable @JsonIgnore LocalDateTime createdAt,
-                                     @Nullable @JsonIgnore LocalDateTime updatedAt) {
+                                     @Nullable LocalDateTime createdAt,
+                                     @Nullable LocalDateTime updatedAt) {
     public Character toCharacter() {
         Character character = new Character();
         BeanUtils.copyProperties(this, character);

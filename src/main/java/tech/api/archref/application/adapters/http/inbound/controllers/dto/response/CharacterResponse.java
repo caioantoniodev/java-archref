@@ -7,22 +7,28 @@ import tech.api.archref.domain.entities.Character;
 import tech.api.archref.domain.enums.Priority;
 import tech.api.archref.domain.valueobjects.Address;
 
+import java.time.LocalDateTime;
+
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record CharacterResponse(String id,
                                 String name,
                                 String description,
                                 Integer attackPoint,
                                 Address address,
-                                Priority priority) {
+                                Priority priority,
+                                LocalDateTime createdAt,
+                                LocalDateTime updatedAt) {
 
 
     public static CharacterResponse from(final Character character) {
-        var characterDto = new CharacterResponse(character.getId().toString(),
+        var characterDto = new CharacterResponse(character.getId(),
                 character.getName(),
                 character.getDescription(),
                 character.getAttackPoint(),
                 character.getAddress(),
-                character.getPriority());
+                character.getPriority(),
+                character.getCreatedAt(),
+                character.getUpdatedAt());
 
         BeanUtils.copyProperties(character, characterDto);
         return characterDto;
