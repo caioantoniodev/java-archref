@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.ErrorResponse;
+import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.pageable.PageableResponse;
 
 @RequestMapping(value = "/v1/characters", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "Character", description = "Operações referentes ao personagem")
@@ -95,5 +95,5 @@ public interface ICharacterControllerSwagger {
             })
     })
     @GetMapping
-    ResponseEntity<Page<CharacterResponse>> getList(@RequestParam Pageable params);
+    ResponseEntity<PageableResponse<CharacterResponse>> getList(Pageable params);
 }

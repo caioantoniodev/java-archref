@@ -1,13 +1,13 @@
 package tech.api.archref.application.adapters.http.inbound.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.request.CharacterCreateRequest;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
+import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.pageable.PageableResponse;
 import tech.api.archref.application.adapters.http.inbound.controllers.swagger.ICharacterControllerSwagger;
 import tech.api.archref.domain.ports.ICharacterService;
 
@@ -45,8 +45,8 @@ public class CharacterController implements ICharacterControllerSwagger {
     }
 
     @Override
-    public ResponseEntity<Page<CharacterResponse>> getList(Pageable pageable) {
-        Page<CharacterResponse> result = characterService.getPages(pageable);
+    public ResponseEntity<PageableResponse<CharacterResponse>> getList(Pageable pageable) {
+        var result = characterService.getPages(pageable);
         return ResponseEntity.ok(result);
     }
 }
