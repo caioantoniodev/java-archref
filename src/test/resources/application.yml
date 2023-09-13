@@ -1,0 +1,18 @@
+marvel-api:
+  uri: https://gateway.marvel.com/v1/public/
+  public-key: 4893a80b-00aa-405b-8380-2ef4d1ebde04
+  private-key: 4893a80b-00aa-405b-8380-2ef4d1ebde04
+  character-ids:
+    - 1009491
+    - 1009351
+    - 1009368
+    - 1009268
+    - 1009268
+    - 1010776
+    - 1009257
+    - 1009220
+    - 1009261
+    - 1010801
+    - 1009338
+    - 1010744
+    - 1010734
