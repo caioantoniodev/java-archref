@@ -1,5 +1,6 @@
 package tech.api.archref.application.adapters.http.inbound.controllers.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.springframework.beans.BeanUtils;
@@ -9,6 +10,7 @@ import tech.api.archref.domain.valueobjects.Address;
 
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record CharacterResponse(String id,
                                 String name,

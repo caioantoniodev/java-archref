@@ -126,10 +126,16 @@ public class CharacterDomainService implements ICharacterService {
         var marvelCharacterDetailResponse = optionalMarvelCharacterDetailResponse.get();
         var modified = marvelCharacterDetailResponse.modified().toLocalDateTime();
 
+        var address = Address.builder()
+                .street("Hollywood Boulevard")
+                .city("Los Angeles")
+                .zipCode("90028")
+                .build();
+
         return new CharacterCreateRequest(marvelCharacterDetailResponse.name(),
                 marvelCharacterDetailResponse.description(),
                 1,
-                new Address(),
+                address,
                 Priority.NONE,
                 modified,
                 modified);
