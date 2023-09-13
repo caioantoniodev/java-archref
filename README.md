@@ -6,7 +6,7 @@
 [![RabbitMQ](https://img.shields.io/badge/-RabbitMQ-%23FF6600?logo=RabbitMQ&logoColor=%23FFF)](https://www.rabbitmq.com/)
 [![Swagger](https://img.shields.io/badge/-Swagger-%2385EA2D?logo=Swagger&logoColor=%23000)](https://swagger.io/)
 [![Docker](https://img.shields.io/badge/-Docker-%232496ED?logo=Docker&logoColor=%23FFF)](https://swagger.io/)
-
+[![Java CI with Maven](https://github.com/caioantoniodev/spring-archref/actions/workflows/maven.yml/badge.svg)](https://github.com/caioantoniodev/spring-archref/actions/workflows/maven.yml)
 <br/>
 
 # ☁️ Arch-Ref Spring
