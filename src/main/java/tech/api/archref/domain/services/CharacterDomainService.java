@@ -112,7 +112,7 @@ public class CharacterDomainService implements ICharacterService {
 
         var characterResponses = characterPage.stream().map(CharacterResponse::from).toList();
 
-        return new PageableResponse<>(characterResponses, characterPage.getNumber(), characterPage.getTotalPages(), characterPage.getTotalElements());
+        return new PageableResponse<>(characterResponses, characterPage.getNumber() + 1, characterPage.getTotalPages(), characterPage.getTotalElements());
     }
 
     private CharacterCreateRequest dealCharacterToCreate(Long randomCharacterId, Params parameters) {
