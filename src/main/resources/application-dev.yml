@@ -54,6 +54,7 @@ management:
       show-details: always
 
 marvel-api:
+  uri: https://gateway.marvel.com/v1/public/
   public-key: ${PUBLIC_KEY}
   private-key: ${PRIVATE_KEY}
   character-ids:

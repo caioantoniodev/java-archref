@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import tech.api.archref.application.adapters.http.outbound.dto.response.MarvelApiResponse;
 
-@FeignClient(url = "https://gateway.marvel.com/v1/public/", name = "MarvelApi")
+@FeignClient(url = "${marvel-api.uri}", name = "MarvelApi")
 public interface ICharacterMarvelApi {
 
     @RequestMapping(method = RequestMethod.GET, value = "/characters/{id}")
