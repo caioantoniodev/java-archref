@@ -3,24 +3,37 @@ package tech.api.archref.application.adapters.http.inbound.controllers.dto.respo
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.beans.BeanUtils;
+import org.springframework.hateoas.RepresentationModel;
 import tech.api.archref.domain.entities.Character;
 import tech.api.archref.domain.enums.Priority;
 import tech.api.archref.domain.valueobjects.Address;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public record CharacterResponse(String id,
-                                String name,
-                                String description,
-                                Integer attackPoint,
-                                Address address,
-                                Priority priority,
-                                LocalDateTime createdAt,
-                                LocalDateTime updatedAt) {
+public class CharacterResponse extends RepresentationModel<CharacterResponse> implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private String id;
+    private String name;
+    private String description;
+    private Integer attackPoint;
+    private Address address;
+    private Priority priority;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public static CharacterResponse from(final Character character) {
         var characterDto = new CharacterResponse(character.getId(),

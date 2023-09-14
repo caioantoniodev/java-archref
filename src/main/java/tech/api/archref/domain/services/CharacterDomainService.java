@@ -22,6 +22,7 @@ import tech.api.archref.domain.valueobjects.Address;
 import tech.api.archref.infrastructure.database.mongo.ICharacterRepository;
 import tech.api.archref.utils.messages.MessageConstants;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -124,7 +125,8 @@ public class CharacterDomainService implements ICharacterService {
             throw new RuntimeException("Error");
 
         var marvelCharacterDetailResponse = optionalMarvelCharacterDetailResponse.get();
-        var modified = marvelCharacterDetailResponse.modified().toLocalDateTime();
+        var modified = Optional.of(marvelCharacterDetailResponse.modified().toLocalDateTime())
+                .orElse(LocalDateTime.now());
 
         var address = Address.builder()
                 .street("Hollywood Boulevard")

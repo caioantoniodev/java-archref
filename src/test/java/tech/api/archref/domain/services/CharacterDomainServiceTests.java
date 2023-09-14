@@ -50,11 +50,11 @@ public class CharacterDomainServiceTests {
         var characterResponse = characterDomainService.create(characterCreateRequest);
 
         // Then
-        assertEquals(characterCreateRequest.name(), characterResponse.name());
-        assertEquals(characterCreateRequest.description(), characterResponse.description());
-        assertEquals(characterCreateRequest.attackPoint(), characterResponse.attackPoint());
-        assertEquals(characterCreateRequest.address(), characterResponse.address());
-        assertEquals(characterCreateRequest.priority(), characterResponse.priority());
+        assertEquals(characterCreateRequest.name(), characterResponse.getName());
+        assertEquals(characterCreateRequest.description(), characterResponse.getDescription());
+        assertEquals(characterCreateRequest.attackPoint(), characterResponse.getAttackPoint());
+        assertEquals(characterCreateRequest.address(), characterResponse.getAddress());
+        assertEquals(characterCreateRequest.priority(), characterResponse.getPriority());
 
         Mockito.verify(characterMessageQueue, Mockito.times(1)).publishCharacterEvent(any());
     }
@@ -72,11 +72,11 @@ public class CharacterDomainServiceTests {
         var characterResponse = characterDomainService.getById(characterId);
 
         // Then
-        assertEquals(character.getName(), characterResponse.name());
-        assertEquals(character.getDescription(), characterResponse.description());
-        assertEquals(character.getAttackPoint(), characterResponse.attackPoint());
-        assertEquals(character.getAddress(), characterResponse.address());
-        assertEquals(character.getPriority(), characterResponse.priority());
+        assertEquals(character.getName(), characterResponse.getName());
+        assertEquals(character.getDescription(), characterResponse.getDescription());
+        assertEquals(character.getAttackPoint(), characterResponse.getAttackPoint());
+        assertEquals(character.getAddress(), characterResponse.getAddress());
+        assertEquals(character.getPriority(), characterResponse.getPriority());
 
         Mockito.verify(characterCache, Mockito.times(1)).findById(characterId);
         Mockito.verify(characterRepository, Mockito.never()).findById(characterId);
@@ -95,11 +95,11 @@ public class CharacterDomainServiceTests {
         var characterResponse = characterDomainService.getById(characterId);
 
         // Then
-        assertEquals(character.getName(), characterResponse.name());
-        assertEquals(character.getDescription(), characterResponse.description());
-        assertEquals(character.getAttackPoint(), characterResponse.attackPoint());
-        assertEquals(character.getAddress(), characterResponse.address());
-        assertEquals(character.getPriority(), characterResponse.priority());
+        assertEquals(character.getName(), characterResponse.getName());
+        assertEquals(character.getDescription(), characterResponse.getDescription());
+        assertEquals(character.getAttackPoint(), characterResponse.getAttackPoint());
+        assertEquals(character.getAddress(), characterResponse.getAddress());
+        assertEquals(character.getPriority(), characterResponse.getPriority());
 
         Mockito.verify(characterCache, Mockito.times(1)).findById(characterId);
         Mockito.verify(characterRepository, Mockito.times(1)).findById(characterId);
