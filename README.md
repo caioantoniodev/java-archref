@@ -114,13 +114,7 @@ mvn archetype:generate
 
 ## ⚡ Getting started
 
-Executa o docker compose para subir as imagens necessárias em container docker
-=======
-cp .env.sample .env
-
-```
-
-Executa o docker compose para subir as imagens necessárias em container docker
+Executa o docker compose para subir as imagens necessárias em container docker (docker-compose-deps.yaml)
 
 ```sh
 cd docker && docker-compose up -d
@@ -130,56 +124,30 @@ cd docker && docker-compose up -d
 
 ## ☕ Executar
 
-### Executando **local**
-
-```
-yarn start:dev
-```
-
-> > > > > > > main
-
-### Executando os **testes**
-
-```sh
-docker-compose up -d
-```
-
-<br/>
-
-## ☕ Executar
-
 ### Compilar o projeto
 
-```
+```sh
 mvn clean install
-```[README.md](README.md)
+```
 
 ### Executando **local**
-```
 
+```sh
 docker build -t springarchref:master .
 docker run -d -p 8080:8080 --name arc springarchref:master
-
 ```
 
 ### Executando os **testes**
 ```sh
 mvn test
 
-yarn test
-
-newman run backend-archref-collection.json -e backend-archref-dev-environment.json
+newman run archref-collection.json -e archref-dev-environment.json
 ```
 
 ### Executando a **cobertura**
 
-```
-yarn test:cov
-```
 
 ### **Swagger**
-
-> > > > > > > main
 
 ```
 http://localhost:{you-port}/v1/api-docs
