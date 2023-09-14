@@ -11,6 +11,11 @@ import tech.api.archref.application.adapters.http.inbound.controllers.dto.respon
 import tech.api.archref.application.adapters.http.inbound.controllers.swagger.ICharacterControllerSwagger;
 import tech.api.archref.domain.ports.ICharacterService;
 
+import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @AllArgsConstructor
 public class CharacterController implements ICharacterControllerSwagger {
@@ -47,6 +52,11 @@ public class CharacterController implements ICharacterControllerSwagger {
     @Override
     public ResponseEntity<PageableResponse<CharacterResponse>> getList(Pageable pageable) {
         var result = characterService.getPages(pageable);
-        return ResponseEntity.ok(result);
+
+        var characterResponsesWithHateoas = result.content().stream().map(characterResponse -> characterResponse.add(
+                linkTo(methodOn(CharacterController.class).get(characterResponse.getId())).withSelfRel()
+        )).toList();
+
+        return ResponseEntity.ok(result.replaceContent(characterResponsesWithHateoas));
     }
 }

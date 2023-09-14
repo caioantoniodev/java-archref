@@ -10,4 +10,11 @@ public record PageableResponse<T>(List<T> content,
                                   int currentPage,
                                   int totalPages,
                                   long totalRecords) {
+
+
+
+
+    public PageableResponse<T> replaceContent(List<T> content) {
+       return new PageableResponse<>(content, this.currentPage, this.totalPages, this.totalRecords);
+    }
 }
