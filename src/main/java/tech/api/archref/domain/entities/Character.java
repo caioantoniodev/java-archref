@@ -1,10 +1,10 @@
 package tech.api.archref.domain.entities;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import tech.api.archref.domain.enums.Priority;
 import tech.api.archref.domain.valueobjects.Address;
@@ -33,6 +33,5 @@ public class Character {
 
     private Address address;
 
-    @Enumerated(EnumType.STRING)
     private Priority priority;
 }
