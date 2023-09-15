@@ -87,34 +87,6 @@ seguindo a estrutura de pastas abaixo
 
 ## ⚡ Getting started
 
-### Instalação do archetype localmente
-
-```sh
-
-mvn archetype:create-from-project
-cd target/generated-sources/archetype
-mvn install
-```
-
-### Criação de um projeto a partir do archetype
-
-```sh
-mvn archetype:generate
-```
-
-### Exemplo de definições do novo projeto
-
-* Choose a number or apply filter: (Na listagem escolha o número correspondente ao projeto de archetype Ex.:3187:
-  local -> tech.api.archref:archref-archetype)
-* Define value for property 'groupId': com.api
-* Define value for property 'artifactId': empresa
-* Define value for property 'version' 1.0-SNAPSHOT:
-* Define value for property 'package' com.api:
-
-<br/>
-
-## ⚡ Getting started
-
 Executa o docker compose para subir as imagens necessárias em container docker (docker-compose-deps.yaml)
 
 ```sh
