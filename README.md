@@ -158,6 +158,6 @@ http://localhost:{you-port}/v1/api-docs
 
 ## 😄 Contribua
 
-Quer fazer parte desse projeto? Clique [AQUI](https://bitbucket.org/sensedia/archref-java/pull-requests/) e abra
+Quer fazer parte desse projeto? Clique [AQUI](https://github.com/caioantoniodev/spring-archref) e abra
 um `pull request` 🧩
 <br/>
