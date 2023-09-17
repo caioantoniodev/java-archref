@@ -17,6 +17,8 @@ import tech.api.archref.application.adapters.http.inbound.controllers.dto.respon
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.ErrorResponse;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.pageable.PageableResponse;
 
+import java.util.Map;
+
 @RequestMapping(value = "/v1/characters", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "Character", description = "Operações referentes ao personagem")
 public interface ICharacterControllerSwagger {
@@ -96,4 +98,7 @@ public interface ICharacterControllerSwagger {
     })
     @GetMapping
     ResponseEntity<PageableResponse<CharacterResponse>> getList(Pageable params);
+
+    @PatchMapping("{id}")
+    public ResponseEntity<?> updatePartialUser(@PathVariable String id, @RequestBody Map<String, Object> requestData);
 }
