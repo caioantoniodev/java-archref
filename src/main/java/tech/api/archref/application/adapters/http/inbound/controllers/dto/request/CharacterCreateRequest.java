@@ -1,8 +1,6 @@
 package tech.api.archref.application.adapters.http.inbound.controllers.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -19,8 +17,7 @@ import java.time.LocalDateTime;
 import static tech.api.archref.domain.exception.MessageErrorCodeConstants.FIELD_MAY_NOT_BE_NULL;
 
 @ValidateAttackPoint
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-@JsonIgnoreProperties(value = {"created_at", "updated_at"})
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt"})
 public record CharacterCreateRequest(@NotEmpty(message = FIELD_MAY_NOT_BE_NULL) String name,
                                      @NotEmpty(message = FIELD_MAY_NOT_BE_NULL) String description,
                                      @Min(1) @Max(13) @NotNull(message = FIELD_MAY_NOT_BE_NULL) Integer attackPoint,

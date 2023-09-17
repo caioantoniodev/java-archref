@@ -5,6 +5,8 @@ import tech.api.archref.application.adapters.http.inbound.controllers.dto.reques
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.CharacterResponse;
 import tech.api.archref.application.adapters.http.inbound.controllers.dto.response.pageable.PageableResponse;
 
+import java.util.Map;
+
 
 public interface ICharacterService {
     CharacterResponse create(CharacterCreateRequest characterCreateRequest);
@@ -16,4 +18,6 @@ public interface ICharacterService {
     CharacterResponse createRandom();
 
     PageableResponse<CharacterResponse> getPages(Pageable pageable);
+
+    boolean updatePartialUser(String id, Map<String, Object> requestData);
 }

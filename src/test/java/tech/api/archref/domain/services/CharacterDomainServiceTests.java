@@ -6,7 +6,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import tech.api.archref.config.application.ApplicationProps;
 import tech.api.archref.config.application.MessageConfig;
 import tech.api.archref.domain.ports.ICharacterCache;
 import tech.api.archref.domain.ports.ICharacterMessageQueue;
@@ -19,7 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
+@ContextConfiguration(classes = {ApplicationProps.class})
 public class CharacterDomainServiceTests {
 
     @Mock
@@ -37,6 +41,8 @@ public class CharacterDomainServiceTests {
     @InjectMocks
     private CharacterDomainService characterDomainService;
 
+    @Autowired
+    private ApplicationProps applicationProps;
 
     @Test
     @DisplayName("CharacterService - Create")

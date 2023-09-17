@@ -11,7 +11,7 @@ import tech.api.archref.application.adapters.http.inbound.controllers.dto.respon
 import tech.api.archref.application.adapters.http.inbound.controllers.swagger.ICharacterControllerSwagger;
 import tech.api.archref.domain.ports.ICharacterService;
 
-import java.util.List;
+import java.util.Map;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -58,5 +58,11 @@ public class CharacterController implements ICharacterControllerSwagger {
         )).toList();
 
         return ResponseEntity.ok(result.replaceContent(characterResponsesWithHateoas));
+    }
+
+    @Override
+    public ResponseEntity<?> updatePartialUser(String id, Map<String, Object> requestData) {
+        characterService.updatePartialUser(id, requestData);
+        return ResponseEntity.noContent().build();
     }
 }

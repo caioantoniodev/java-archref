@@ -1,8 +1,6 @@
 package tech.api.archref.application.adapters.http.inbound.controllers.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +18,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CharacterResponse extends RepresentationModel<CharacterResponse> implements Serializable {
 
     @Serial
