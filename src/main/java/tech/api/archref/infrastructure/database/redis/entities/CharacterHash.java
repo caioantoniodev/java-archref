@@ -15,7 +15,7 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RedisHash(value = "character", timeToLive = 60L)
+@RedisHash(value = "character", timeToLive = 720L)
 public class CharacterHash {
     @Id
     private String id;
