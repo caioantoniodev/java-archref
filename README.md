@@ -106,8 +106,11 @@ mvn clean install
 ### Executando **local**
 
 ```sh
-docker build -t springarchref:master .
-docker run -d -p 8080:8080 --name arc springarchref:master
+mvn spring-boot:run 
+
+or
+
+java -jar target/archref-0.0.1-SNAPSHOT.jar
 ```
 
 ### Executando os **testes**
@@ -116,9 +119,6 @@ mvn test
 
 newman run archref-collection.json -e archref-dev-environment.json
 ```
-
-### Executando a **cobertura**
-
 
 ### **Swagger**
 
