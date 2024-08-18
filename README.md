@@ -66,6 +66,8 @@ seguindo a estrutura de pastas abaixo
       /logger
 ```
 
+![Captura de Tela 2024-08-18 às 18 28 54](https://github.com/user-attachments/assets/71a33a5a-90c5-4b63-ab18-846c5d51ed84)
+
 <br/>
 
 ## ⌛️ Serviços
@@ -116,8 +118,6 @@ java -jar target/archref-0.0.1-SNAPSHOT.jar
 ### Executando os **testes**
 ```sh
 mvn test
-
-newman run archref-collection.json -e archref-dev-environment.json
 ```
 
 ### **Swagger**
